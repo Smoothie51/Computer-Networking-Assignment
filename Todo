@@ -1,0 +1,22 @@
+# NET2201 Network Design and Implementation To-Do List
+
+## Needed
+- [ ] **Topology Design:** Design and configure a network topology containing a minimum of 4 PCs (at least one per VLAN), 2 switches, and 2 routers (one for inter-VLAN routing, one to represent an ISP/external network).
+- [x] **Trunking:** Configure trunk links between network devices, explicitly setting allowed VLANs and native VLAN configurations.
+- [x] **Inter-VLAN Routing:** Configure Router-on-a-stick using router subinterfaces and 802.1Q encapsulation to allow hosts from different VLANs to communicate.
+- [x] **DHCP:** Configure DHCP services with a separate pool for each VLAN, ensuring correct network addresses, subnet masks, default gateways, and excluded addresses.
+- [x] **Routing:** Configure static routes where necessary, a default route pointing toward the ISP/external network, and a return route from the external router back to internal networks.
+- [x] **Layer 2 Security:** Apply and document at least four specific switch security features from the provided list, such as port security, shutting down unused ports, DHCP snooping, or BPDU Guard.
+- [x] **Device Management:** Secure all devices by configuring hostnames, enable secret passwords, console and VTY password protection, SSH, local usernames/passwords, and management IPs/gateways for switches.
+
+## Optional but is actually needed
+- [x] **STP and EtherChannel:** Design the topology to include redundancy between switches where possible, configuring Spanning Tree Protocol (STP) and EtherChannel. (Required to earn 1 mark in the grading rubric).
+
+## Optional with higher grades
+- [ ] **Expanded Topology:** Use more than the minimum required devices to design a more complete or realistic network topology, which can help demonstrate a highly scalable design (subject to device availability in the lab).
+
+## Optional but recommended
+- [ ] **Verification Commands:** Execute specific Cisco IOS verification commands during testing (e.g., `show vlan brief`, `show interfaces trunk`, `show spanning-tree`, and `show ip dhcp binding`) to validate configurations for the troubleshooting and documentation sections.
+
+## Completely optional
+- [ ] **Custom VLAN IDs:** Configure custom VLAN numbers and names in your topology instead of using the suggested defaults (10, 20, 30, 99). (Ensure custom choices are clearly documented).
