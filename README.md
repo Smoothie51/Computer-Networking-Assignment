@@ -1,5 +1,5 @@
 ## Project Overview
-This repository contains the configuration files and documentation for a small-to-medium enterprise network. The objective is to upgrade a flat network into a properly segmented, highly available, and secure infrastructure based on the CCNA SRWE (Switching, Routing, and Wireless Essentials) framework.
+This repository contains the configuration files and documentation for a small LAN network. The objective is to upgrade a flat network into a properly segmented, highly available, and secure infrastructure based on the CCNA SRWE (Switching, Routing, and Wireless Essentials) framework.
 
 ## Topology Architecture
 The network is built using a hierarchical design consisting of the following key devices:
