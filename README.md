@@ -23,3 +23,43 @@ The network is built using a hierarchical design consisting of the following key
 | **1001** | Unused | N/A | N/A |
 
 * **ISP Point-to-Point Link:** 209.165.200.0 /30
+
+---
+
+## 🔗 Trunking & Port-Channel Architecture
+
+The network utilizes robust Layer 2 interconnects using 802.1Q trunking and LACP EtherChannels to provide redundancy, increased bandwidth, and secure inter-VLAN routing.
+
+| Device | Interface(s) | Logical Group | Mode | Purpose | Security Features |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **S1** | `f0/21 - f0/22` | `Port-Channel 1` | Trunk (LACP Active) | Redundant Uplink to S2 | DHCP Snooping Trust, ARP Trust, Static |
+| **S1** | `f0/23 - f0/24` | `Port-Channel 2` | Trunk (LACP Active) | Redundant Uplink to S2 | DHCP Snooping Trust, ARP Trust, Static |
+| **S2** | `f0/21 - f0/22` | `Port-Channel 1` | Trunk (LACP Active) | Downlink to S1 | DHCP Snooping Trust, ARP Trust, Static |
+| **S2** | `f0/23 - f0/24` | `Port-Channel 2` | Trunk (LACP Active) | Downlink to S1 | DHCP Snooping Trust, ARP Trust, Static |
+| **S2** | `g0/1` | N/A (Standalone) | Trunk | Uplink to Inter-VLAN Router (R1) | DHCP Snooping Trust, ARP Trust, Static |
+| **R1** | `g0/1` | N/A (Standalone) | Trunk (802.1Q Subinterfaces) | Router-on-a-Stick gateway for S2 | N/A (Router side) |
+
+## Trunk Vlan Table 
+| Device | Logical/Trunk Interface | Connection | Allowed VLANs | Native VLAN | 
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **S1** | `Port-Channel 1` | Uplink to S2 | 10, 20, 30, 99, 1000 | 1000 |
+| **S1** | `Port-Channel 2` | Uplink to S2 | 10, 20, 30, 99, 1000 | 1000 |
+| **S2** | `Port-Channel 1` | Downlink to S1 | 10, 20, 30, 99, 1000 | 1000 |
+| **S2** | `Port-Channel 2` | Downlink to S1 | 10, 20, 30, 99, 1000 | 1000 |
+| **S2** | `g0/1` | Uplink to R1 | 10, 20, 30, 99, 1000 | 1000 |
+
+---
+
+## 🌍 Edge Routing & NAT Integration
+
+The internal network connects to the simulated ISP (R2) using a dynamic DHCP link, protected by Network Address Translation (NAT) overload (PAT).
+
+* **Internal Router (R1):**
+  * `g0/2` connects to the ISP and dynamically requests an IP address via dhcp.
+  * Utilizes an Standard Access Control List NAT to strictly permit only data and management subnets (VLANs 10, 20, 30, and 99) to reach the internet.
+  * All internal subnets are mapped to the dynamic `g0/2` IP address using NAT Overload.
+  * A default route (`0.0.0.0/0`) directs all unknown traffic out of `g0/2`.
+
+* **ISP Simulator (R2):**
+  * `g0/2` acts as the DHCP server for the WAN link, assigning IPs from the `209.165.200.0/24` pool.
+  * Hosts a `Loopback 0` interface (`8.8.8.8`) to simulate external internet connectivity for end-to-end ping testing.
