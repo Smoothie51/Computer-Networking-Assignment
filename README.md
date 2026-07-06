@@ -31,7 +31,7 @@ The network is built using a hierarchical design consisting of the following key
 The network utilizes robust Layer 2 interconnects using 802.1Q trunking and LACP EtherChannels to provide redundancy, increased bandwidth, and secure inter-VLAN routing.
 
 | Device | Interface(s) | Logical Group | Mode | Purpose | Security Features |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| :--- | :--- | :--- | :--- | :--- | :--- | 
 | **S1** | `f0/21 - f0/22` | `Port-Channel 1` | Trunk (LACP Active) | Redundant Uplink to S2 | DHCP Snooping Trust, ARP Trust, Static |
 | **S1** | `f0/23 - f0/24` | `Port-Channel 2` | Trunk (LACP Active) | Redundant Uplink to S2 | DHCP Snooping Trust, ARP Trust, Static |
 | **S2** | `f0/21 - f0/22` | `Port-Channel 1` | Trunk (LACP Active) | Downlink to S1 | DHCP Snooping Trust, ARP Trust, Static |
@@ -41,12 +41,13 @@ The network utilizes robust Layer 2 interconnects using 802.1Q trunking and LACP
 
 ## Trunk Vlan Table 
 | Device | Logical/Trunk Interface | Connection | Allowed VLANs | Native VLAN | 
-| :--- | :--- | :--- | :--- | :--- | :--- |
+| :--- | :--- | :--- | :--- | :--- |
 | **S1** | `Port-Channel 1` | Uplink to S2 | 10, 20, 30, 99, 1000 | 1000 |
 | **S1** | `Port-Channel 2` | Uplink to S2 | 10, 20, 30, 99, 1000 | 1000 |
 | **S2** | `Port-Channel 1` | Downlink to S1 | 10, 20, 30, 99, 1000 | 1000 |
 | **S2** | `Port-Channel 2` | Downlink to S1 | 10, 20, 30, 99, 1000 | 1000 |
 | **S2** | `g0/1` | Uplink to R1 | 10, 20, 30, 99, 1000 | 1000 |
+
 
 ---
 
