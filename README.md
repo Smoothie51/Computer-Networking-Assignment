@@ -17,7 +17,7 @@ The network is built using a hierarchical design consisting of the following key
 | :--- | :--- | :--- | :--- |
 | **10** | Staff | 192.168.10.0 /24 | 192.168.10.1 |
 | **20** | Student | 192.168.20.0 /24 | 192.168.20.1 |
-| **30** | Guest/Public | 192.168.30.0 /24 | 192.168.30.1 |
+| **30** | Guest_Public | 192.168.30.0 /24 | 192.168.30.1 |
 | **99** | Management | 192.168.99.0 /24 | 192.168.99.1 |
 | **1000** | Native | N/A | N/A |
 | **1001** | Unused | N/A | N/A |
@@ -32,10 +32,10 @@ The network utilizes robust Layer 2 interconnects using 802.1Q trunking and LACP
 
 | Device | Interface(s) | Logical Group | Mode | Purpose | Security Features |
 | :--- | :--- | :--- | :--- | :--- | :--- | 
-| **S1** | `f0/21 - f0/22` | `Port-Channel 1` | Trunk (LACP Active) | Redundant Uplink to S2 | DHCP Snooping Trust, ARP Trust, Static |
-| **S1** | `f0/23 - f0/24` | `Port-Channel 2` | Trunk (LACP Active) | Redundant Uplink to S2 | DHCP Snooping Trust, ARP Trust, Static |
-| **S2** | `f0/21 - f0/22` | `Port-Channel 1` | Trunk (LACP Active) | Downlink to S1 | DHCP Snooping Trust, ARP Trust, Static |
-| **S2** | `f0/23 - f0/24` | `Port-Channel 2` | Trunk (LACP Active) | Downlink to S1 | DHCP Snooping Trust, ARP Trust, Static |
+| **S1-2** | `f0/21` | `Port-Channel 1` | Trunk (LACP Active) | Redundant Uplink to S2 | DHCP Snooping Trust, ARP Trust, Static |
+| **S1-2** | `f0/22` | `Port-Channel 1` | Trunk (LACP Active) | Downlink to S1 | DHCP Snooping Trust, ARP Trust, Static |
+| **S1-2** | `f0/23` | `Port-Channel 2` | Trunk (LACP Active) | Redundant Uplink to S2 | DHCP Snooping Trust, ARP Trust, Static |
+| **S1-2** | `f0/24` | `Port-Channel 2` | Trunk (LACP Active) | Downlink to S1 | DHCP Snooping Trust, ARP Trust, Static |
 | **S2** | `g0/1` | N/A (Standalone) | Trunk | Uplink to Inter-VLAN Router (R1) | DHCP Snooping Trust, ARP Trust, Static |
 | **R1** | `g0/1` | N/A (Standalone) | Trunk (802.1Q Subinterfaces) | Router-on-a-Stick gateway for S2 | N/A (Router side) |
 
